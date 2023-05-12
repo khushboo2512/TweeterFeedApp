@@ -1,0 +1,62 @@
+.container {
+    margin-top: 20px;
+}
+
+.side {
+    background-color: #fff;
+    padding: 20px;
+    max-height: 600px;
+}
+
+.searchInput {
+    border-radius: 50px;
+}
+
+.pagination {
+    margin-top: 10px;
+}
+
+.pagination .page-link {
+    border-radius: 50px;
+    padding: 6px 12px;
+    margin-right: 6px;
+}
+
+.card-text {
+    word-wrap: break-word;
+}
+
+.badge {
+    margin-right: 10px;
+}
+
+.retweet {
+    background-color: #e9f2f9;
+    padding: 25px;
+}
+
+.tweet {
+    background-color: #fff;
+    padding: 10px;
+}
+
+@media (min-width: 768px) {
+    .col-md-3 {
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+}
+
+@media (min-width: 992px) {
+    .col-lg-3 {
+        flex: 0 0 25%;
+        max-width: 25%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .col-xl-3 {
+        flex: 0 0 25%;
+        max-width: 25%;
+    }
+}

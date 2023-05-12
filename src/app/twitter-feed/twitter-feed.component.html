@@ -1,0 +1,87 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4 side">
+            <div class="form-group mt-4 mb-3">
+                <label for="searchTerm" class="form-label"><strong>Tweet Filters</strong></label>
+                <input type="text" class="form-control searchInput" placeholder="@nameHandle or name"
+                    [(ngModel)]="searchTerm" (keyup)="searchTweet()">
+            </div>
+            <!-- <div class="form-group mt-4 mb-4">
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" [(ngModel)]="retweetFilter"
+                        (click)="toggleRetweetFilter()">
+                    <label class="form-check-label" for="retweetFilter"><strong>Show Retweets Only</strong></label>
+                </div>
+            </div> -->
+
+            <div class="form-group mt-4 mb-4">
+                <label class="form-check-label"><strong>Show Only</strong></label>
+                <div class="form-check">
+                  <input type="radio" class="form-check-input" id="allTweetsRadio" [(ngModel)]="retweetFilter" (click)="toggleRetweetFilter()" [value]="false" >
+                  <label class="form-check-label" for="allTweetsRadio">All tweets</label>
+                </div>
+                <div class="form-check">
+                  <input type="radio" class="form-check-input" id="retweetsRadio" [(ngModel)]="retweetFilter" (click)="toggleRetweetFilter()" [value]="true">
+                  <label class="form-check-label" for="retweetsRadio">Retweeted Tweets</label>
+                </div>
+              </div>
+
+            <div class="form-group mt-4 mb-4">
+                <label class="form-label"><strong>Number posts/page</strong></label>
+                <div class="row mb-3">
+                    <label for="tweetsPerPage" class="col-form-label col-6">No. of Posts/Page:</label>                   
+                        <input type="number" class="col-2" id="tweetsPerPage" [(ngModel)]="tweetsPerPage"
+                            (change)="onPostsPerPageChange()">
+                    </div>
+            </div>
+            <p>Pages:</p>
+            <ul class="pagination pagination-sm">
+                <li class="page-item" [ngClass]="{'active': currentPage === i}" *ngFor="let i of pageNumbers">
+                    <a class="page-link" href="#" (click)="onPageChange(i)">{{i}}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-8">
+            <div class="card" *ngFor="let tweet of filteredTweets">
+                <div class="card-body">
+                    <div *ngIf="tweet.retweeted_status">
+                        <div class="retweet">
+                            <h6 class="card-title mb-2">{{ tweet.retweeted_status.user.name
+                                }} <span class="text-muted">Retweeted</span></h6>
+                            <div class="tweet">
+                                <div class="row">
+                                    <div class="col-sm-1">
+                                        <img [src]="tweet.user.profile_image_url_https" alt="profile-pic"
+                                            class="rounded-circle" (error)="onImageError($event, tweet.user.name)"/>
+                                    </div>
+                                    <div class="col-sm-11">
+                                        <h6 class="card-title mt-2 ms-2">{{ tweet.user.name }} (@{{
+                                            tweet.user.screen_name }})</h6>
+                                    </div>
+                                </div>
+                                <p class="card-text mt-2 ms-5" [innerHTML]="tweet.text | tweetText: tweet.entities">
+                                </p>
+                            </div>
+                            <small class="text-muted">{{ tweet.retweeted_status.created_at | date }}</small>
+                        </div>
+                    </div>
+
+                    <div *ngIf="!tweet.retweeted_status">
+                        <div class="row mt-2">
+                            <div class="col-sm-1">
+                                <img [src]="tweet.user.profile_image_url_https" alt="profile-pic"
+                                    class="rounded-circle" (error)="onImageError($event, tweet.user.name)"/>
+                            </div>
+                            <div class="col-sm-11">
+                                <h6 class="card-title mt-2 ms-2">{{ tweet.user.name }} (@{{ tweet.user.screen_name
+                                    }})</h6>
+                            </div>
+                        </div>
+                        <p class="card-text mt-2 ms-5" [innerHTML]="tweet.text | tweetText: tweet.entities"></p>
+                        <small class="text-muted">{{ tweet.created_at | date }}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
